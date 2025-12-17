@@ -1,3 +1,4 @@
+// sections/AboutSection.tsx
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
@@ -40,18 +41,18 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
       }).format(now)
       setCurrentTime(istTime)
     }
-    
+
     updateTime()
     const timeInterval = setInterval(updateTime, 1000)
-    
+
     // Rotate activities
     const activityInterval = setInterval(() => {
       setCurrentActivity(activities[Math.floor(Math.random() * activities.length)])
     }, 3000)
-    
+
     // Set initial activity
     setCurrentActivity(activities[0])
-    
+
     return () => {
       clearInterval(timeInterval)
       clearInterval(activityInterval)
@@ -72,11 +73,11 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
       },
       { threshold: 0.3 }
     )
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current)
     }
-    
+
     return () => observer.disconnect()
   }, [])
 
@@ -91,7 +92,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
       'Python': 75,
       'UI/UX Design': 80
     }
-    
+
     Object.entries(skills).forEach(([skill, percentage], index) => {
       setTimeout(() => {
         setSkillProgress(prev => ({
@@ -179,7 +180,8 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
   }
 
   return (
-    <section 
+    <section
+      id="about"
       ref={sectionRef}
       className="relative min-h-screen py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-black dark:to-blue-950/30 overflow-hidden"
     >
@@ -197,15 +199,16 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
               About Me
             </h2>
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Visual Hierarchy: Large, gradient text creates strong focal point"
                 description="top"
               />
             )}
           </div>
-          
-          {/* Live Status Card */}
-          <div className="inline-flex items-center space-x-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg border border-gray-200/50 dark:border-gray-700/50 mb-8">
+        </div>
+        {/* Move Live Status Card here, below the heading and above the navigation tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex items-center space-x-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
             <div className="flex items-center space-x-2">
               <div className="relative">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -228,11 +231,10 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                 <button
                   key={tab}
                   onClick={() => handleTabChange(tab)}
-                  className={`relative px-6 py-3 rounded-xl font-medium transition-all duration-300 capitalize ${
-                    activeTab === tab
+                  className={`relative px-6 py-3 rounded-xl font-medium transition-all duration-300 capitalize ${activeTab === tab
                       ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-                  }`}
+                    }`}
                 >
                   {tab}
                   {activeTab === tab && (
@@ -242,7 +244,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
               ))}
             </div>
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Progressive Disclosure: Tabs organize content and reduce cognitive load"
                 description="top"
               />
@@ -271,7 +273,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                         <span>💻 {getExperienceYears()}+ years coding</span>
                       </div>
                     </div>
-                    
+
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
@@ -282,7 +284,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                           <p className="text-sm text-gray-600 dark:text-gray-400">Building production-ready React applications</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
                           🌟
@@ -292,7 +294,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                           <p className="text-sm text-gray-600 dark:text-gray-400">Creating delightful user experiences</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
                           🚀
@@ -344,7 +346,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                   <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Technical Skills</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {skills.map((skill, index) => (
-                      <div 
+                      <div
                         key={skill.name}
                         className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 cursor-pointer"
                         onMouseEnter={() => setHoveredSkill(skill.name)}
@@ -364,7 +366,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                             <span className="text-gray-900 dark:text-white font-medium">{skillProgress[skill.name] || 0}%</span>
                           </div>
                           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                            <div 
+                            <div
                               className={`h-2 rounded-full bg-gradient-to-r ${getSkillColor(skill.level)} transition-all duration-1000 ease-out`}
                               style={{ width: `${skillProgress[skill.name] || 0}%` }}
                             ></div>
@@ -419,7 +421,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
@@ -445,23 +447,22 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                 <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white">What Drives Me</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {interests.map((interest, index) => (
-                    <div 
+                    <div
                       key={interest.name}
-                      className={`relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 cursor-pointer group ${
-                        interest.active ? 'ring-2 ring-blue-500/20' : ''
-                      }`}
+                      className={`relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 cursor-pointer group ${interest.active ? 'ring-2 ring-blue-500/20' : ''
+                        }`}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       {interest.active && (
                         <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
                       )}
-                      
+
                       <div className="text-center mb-4">
                         <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{interest.icon}</div>
                         <h4 className="font-bold text-gray-900 dark:text-white mb-2">{interest.name}</h4>
                         <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{interest.description}</p>
                       </div>
-                      
+
                       {interest.active && (
                         <div className="text-center">
                           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
@@ -472,7 +473,7 @@ export default function AboutSection({ showUXLaws = false }: AboutSectionProps) 
                     </div>
                   ))}
                 </div>
-                
+
                 {/* Fun Stats */}
                 <div className="mt-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200/50 dark:border-gray-700/50">
                   <h4 className="text-xl font-bold text-center mb-8 text-gray-900 dark:text-white">Fun Stats</h4>

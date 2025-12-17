@@ -1,3 +1,4 @@
+// constants/uxLaws.ts
 export const UX_LAWS = [
   {
     id: 'fitts-law',

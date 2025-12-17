@@ -1,4 +1,6 @@
-import '/styles/globals.css'
+// app/layout.txs
+
+import '../styles/globals.css'
 
 export const metadata = {
   title: 'Your Portfolio',

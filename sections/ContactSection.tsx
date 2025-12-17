@@ -1,3 +1,4 @@
+// sections/ContactSection.tsx
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
@@ -28,7 +29,7 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
         hour12: true
       }).format(now)
       setCurrentTime(istTime)
-      
+
       // Calculate response time based on current hour
       const hour = now.getHours()
       if (hour >= 9 && hour <= 18) {
@@ -37,7 +38,7 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
         setResponseTime('Usually by next morning')
       }
     }
-    
+
     updateTime()
     const interval = setInterval(updateTime, 60000) // Update every minute
     return () => clearInterval(interval)
@@ -49,11 +50,11 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
       ([entry]) => setIsInView(entry.isIntersecting),
       { threshold: 0.2 }
     )
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current)
     }
-    
+
     return () => observer.disconnect()
   }, [])
 
@@ -138,7 +139,8 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
   }
 
   return (
-    <section 
+    <section
+      id="contact"
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center py-20 px-4 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-black dark:via-blue-950/20 dark:to-purple-950/20 overflow-hidden"
     >
@@ -150,13 +152,13 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className="text-center mb-16">
           <div className="relative inline-block">
             <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
               Let's Connect
             </h2>
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Emotional Design: Warm, inviting language encourages engagement"
                 description="top"
               />
@@ -175,11 +177,11 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
         </div>
 
         {/* Interactive Contact Methods */}
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transform transition-all duration-1000 delay-200 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {contactMethods.map((method) => (
             <div
               key={method.id}
-              className={`relative group cursor-pointer transform transition-all duration-500 hover:scale-105 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              className="relative group cursor-pointer hover:scale-105"
               style={{ transitionDelay: `${method.delay}ms` }}
               onClick={() => handleMethodSelect(method.id, method.action)}
               onMouseMove={handleMouseMove}
@@ -189,12 +191,12 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
               <div className={`relative overflow-hidden rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 p-6 shadow-lg group-hover:shadow-2xl transition-all duration-300 ${selectedMethod === method.id ? 'ring-2 ring-blue-500 scale-105' : ''}`}>
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${method.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                
+
                 {/* Icon */}
                 <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                   {method.icon}
                 </div>
-                
+
                 {/* content */}
                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
                   {method.label}
@@ -205,15 +207,15 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {method.secondary}
                 </p>
-                
+
                 {/* Ripple effect */}
                 {selectedMethod === method.id && (
                   <div className="absolute inset-0 rounded-2xl bg-blue-400/20 animate-ping"></div>
                 )}
               </div>
-              
+
               {showUXLaws && method.id === 'email' && (
-                <TooltipBubble 
+                <TooltipBubble
                   lawName="Fitts's Law: Large touch targets reduce selection errors"
                   description="top"
                 />
@@ -223,29 +225,28 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
         </div>
 
         {/* Quick Topic Selector */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 delay-400 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className="text-center mb-16">
           <div className="relative">
             <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">
               What would you like to discuss?
             </h3>
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Hick's Law: Categorized options reduce decision time"
                 description="top"
               />
             )}
           </div>
-          
+
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {quickTopics.map((topic, index) => (
               <button
                 key={topic.label}
                 onClick={() => handleTopicClick(topic.label)}
-                className={`relative group inline-flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 transform ${
-                  topic.popular 
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg hover:shadow-xl' 
-                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300 dark:hover:border-blue-600'
-                }`}
+                className={`relative group inline-flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 transform ${topic.popular
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg hover:shadow-xl'
+                  : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300 dark:hover:border-blue-600'
+                  }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <span>{topic.emoji}</span>
@@ -259,7 +260,7 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
         </div>
 
         {/* Interactive Message Preview */}
-        <div className={`max-w-2xl mx-auto mb-16 transform transition-all duration-1000 delay-600 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className="max-w-2xl mx-auto mb-16">
           <div className="relative">
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 p-6 shadow-lg">
               <div className="flex items-center space-x-3 mb-4">
@@ -271,14 +272,14 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
                   <p className="text-sm text-gray-500 dark:text-gray-400">Ready to send!</p>
                 </div>
               </div>
-              
+
               <textarea
                 className="w-full h-32 p-4 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
                 placeholder="Hi Shubham! I'd love to discuss..."
                 onChange={(e) => setMessageLength(e.target.value.length)}
                 defaultValue="Hi Shubham!\n\nI came across your portfolio and I'm impressed by your work. I'd love to discuss potential opportunities.\n\nBest regards,"
               />
-              
+
               <div className="flex justify-between items-center mt-4">
                 <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
                   <span>Characters: {messageLength}</span>
@@ -293,9 +294,9 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
                 </button>
               </div>
             </div>
-            
+
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Progressive Disclosure: Pre-filled template reduces friction in communication"
                 description="top"
               />
@@ -304,19 +305,19 @@ export default function ContactSection({ showUXLaws = false }: ContactSectionPro
         </div>
 
         {/* Call to Action */}
-        <div className={`text-center transform transition-all duration-1000 delay-800 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className="text-center">
           <div className="relative">
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
               Whether you're looking to hire, collaborate, or just want to chat about frontend development and UX design, I'm always excited to connect with fellow creators and innovators.
             </p>
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Reciprocity Principle: Personal invitation creates connection and encourages response"
                 description="top"
               />
             )}
           </div>
-          
+
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <button
               onClick={() => window.open('mailto:shubham@example.com?subject=Let\'s collaborate!')}

@@ -1,6 +1,9 @@
-export {}
+// sections/ProjectSection.tsx
 
 'use client'
+
+export { }
+
 
 import { useState, useEffect, useRef } from 'react'
 import { ChevronRight, ExternalLink, Github, Play, Pause, Eye } from 'lucide-react'
@@ -128,8 +131,8 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
 
   const categories = ['All', 'Productivity', 'Education', 'Game', 'Creative', 'Entertainment']
 
-  const filteredProjects = activeFilter === 'All' 
-    ? projects 
+  const filteredProjects = activeFilter === 'All'
+    ? projects
     : projects.filter(project => project.category === activeFilter)
 
   useEffect(() => {
@@ -141,11 +144,11 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
       },
       { threshold: 0.2 }
     )
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current)
     }
-    
+
     return () => observer.disconnect()
   }, [])
 
@@ -177,7 +180,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
   }
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative min-h-screen py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-purple-50/30 dark:from-gray-900 dark:via-black dark:to-purple-950/30 overflow-hidden"
     >
@@ -195,7 +198,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
               Featured Projects
             </h2>
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Von Restorff Effect: Large, contrasting headers help important content stand out"
                 description="top"
               />
@@ -223,17 +226,16 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                     <button
                       key={index}
                       onClick={() => setCurrentSlide(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        currentSlide === index 
-                          ? 'bg-blue-500 w-6' 
-                          : 'bg-gray-300 dark:bg-gray-600'
-                      }`}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === index
+                        ? 'bg-blue-500 w-6'
+                        : 'bg-gray-300 dark:bg-gray-600'
+                        }`}
                     />
                   ))}
                 </div>
               </div>
             </div>
-            
+
             {filteredProjects.length > 0 && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div className="order-2 lg:order-1">
@@ -251,14 +253,14 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         </span>
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                       {filteredProjects[currentSlide]?.longDescription}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
                       {filteredProjects[currentSlide]?.tags.map((tag, index) => (
-                        <span 
+                        <span
                           key={index}
                           className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                         >
@@ -266,7 +268,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         </span>
                       ))}
                     </div>
-                    
+
                     <div className="flex space-x-4">
                       <button
                         onClick={() => openProjectDetail(filteredProjects[currentSlide])}
@@ -275,7 +277,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         <Eye className="w-4 h-4" />
                         <span>View Details</span>
                       </button>
-                      
+
                       {filteredProjects[currentSlide]?.liveUrl && (
                         <button className="flex items-center space-x-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-full font-medium hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300">
                           <ExternalLink className="w-4 h-4" />
@@ -285,7 +287,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="order-1 lg:order-2">
                   <div className="relative">
                     <div className={`w-full h-64 bg-gradient-to-br ${filteredProjects[currentSlide]?.gradient} rounded-2xl flex items-center justify-center text-white text-6xl shadow-2xl`}>
@@ -298,9 +300,9 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                 </div>
               </div>
             )}
-            
+
             {showUXLaws && (
-              <TooltipBubble 
+              <TooltipBubble
                 lawName="Progressive Disclosure: Hero section highlights key project, detailed view available on demand"
                 description="top"
               />
@@ -315,37 +317,34 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
               <button
                 key={category}
                 onClick={() => setActiveFilter(category)}
-                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                  activeFilter === category
-                    ? 'bg-blue-500 text-white shadow-lg'
-                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
+                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${activeFilter === category
+                  ? 'bg-blue-500 text-white shadow-lg'
+                  : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  }`}
               >
                 {category}
               </button>
             ))}
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <span className="text-sm text-gray-600 dark:text-gray-400">View:</span>
             <div className="flex rounded-lg bg-white/80 dark:bg-gray-800/80 p-1 shadow-sm">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`px-3 py-1 rounded text-sm transition-all duration-200 ${
-                  viewMode === 'grid' 
-                    ? 'bg-blue-500 text-white' 
-                    : 'text-gray-600 dark:text-gray-400'
-                }`}
+                className={`px-3 py-1 rounded text-sm transition-all duration-200 ${viewMode === 'grid'
+                  ? 'bg-blue-500 text-white'
+                  : 'text-gray-600 dark:text-gray-400'
+                  }`}
               >
                 Grid
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`px-3 py-1 rounded text-sm transition-all duration-200 ${
-                  viewMode === 'list' 
-                    ? 'bg-blue-500 text-white' 
-                    : 'text-gray-600 dark:text-gray-400'
-                }`}
+                className={`px-3 py-1 rounded text-sm transition-all duration-200 ${viewMode === 'list'
+                  ? 'bg-blue-500 text-white'
+                  : 'text-gray-600 dark:text-gray-400'
+                  }`}
               >
                 List
               </button>
@@ -355,17 +354,15 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
 
         {/* Projects Grid/List */}
         <div className={`transform transition-all duration-1000 delay-600 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className={`grid gap-6 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-              : 'grid-cols-1'
-          }`}>
+          <div className={`grid gap-6 ${viewMode === 'grid'
+            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            : 'grid-cols-1'
+            }`}>
             {filteredProjects.map((project, index) => (
               <div
                 key={project.id}
-                className={`group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200/50 dark:border-gray-700/50 overflow-hidden cursor-pointer ${
-                  viewMode === 'list' ? 'flex items-center p-6' : 'p-6'
-                }`}
+                className={`group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200/50 dark:border-gray-700/50 overflow-hidden cursor-pointer ${viewMode === 'list' ? 'flex items-center p-6' : 'p-6'
+                  }`}
                 style={{ animationDelay: `${index * 100}ms` }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
@@ -381,18 +378,18 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         {project.status}
                       </span>
                     </div>
-                    
+
                     <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
-                    
+
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
                       {project.description}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                        <span 
+                        <span
                           key={tagIndex}
                           className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-700 dark:text-gray-300"
                         >
@@ -405,7 +402,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <div className="flex space-x-2">
                         {project.liveUrl && (
@@ -437,7 +434,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                       <p className="text-gray-600 dark:text-gray-400 mb-2">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {project.tags.slice(0, 4).map((tag, tagIndex) => (
-                          <span 
+                          <span
                             key={tagIndex}
                             className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs text-gray-700 dark:text-gray-300"
                           >
@@ -461,9 +458,9 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                     </div>
                   </div>
                 )}
-                
+
                 {hoveredProject === project.id && showUXLaws && (
-                  <TooltipBubble 
+                  <TooltipBubble
                     lawName="Fitts's Law: Larger click targets and hover states improve interaction efficiency"
                     description="top"
                   />
@@ -497,14 +494,14 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                     <ChevronRight className="w-6 h-6 rotate-45 transform" />
                   </button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <div>
                     <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Overview</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                       {selectedProject.longDescription}
                     </p>
-                    
+
                     <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Key Features</h3>
                     <ul className="space-y-2 mb-6">
                       {selectedProject.features.map((feature, index) => (
@@ -514,7 +511,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         </li>
                       ))}
                     </ul>
-                    
+
                     <div className="flex space-x-4">
                       {selectedProject.liveUrl && (
                         <button className="flex items-center space-x-2 bg-black dark:bg-white text-white dark:text-black px-6 py-3 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300">
@@ -530,12 +527,12 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                       )}
                     </div>
                   </div>
-                  
+
                   <div>
                     <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tech Stack</h3>
                     <div className="flex flex-wrap gap-2 mb-6">
                       {selectedProject.techStack.map((tech, index) => (
-                        <span 
+                        <span
                           key={index}
                           className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                         >
@@ -543,12 +540,12 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                         </span>
                       ))}
                     </div>
-                    
+
                     <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Impact</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-6">
                       {selectedProject.impact}
                     </p>
-                    
+
                     <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
                       <h4 className="font-semibold mb-2 text-gray-900 dark:text-white">Project Details</h4>
                       <div className="space-y-2 text-sm">
@@ -572,9 +569,9 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
                     </div>
                   </div>
                 </div>
-                
+
                 {showUXLaws && (
-                  <TooltipBubble 
+                  <TooltipBubble
                     lawName="Hick's Law: Modal focuses attention on single project, reducing cognitive load"
                     description="top"
                   />
@@ -584,7 +581,7 @@ export default function ProjectSection({ showUXLaws = false }: ProjectSectionPro
           </div>
         )}
       </div>
-      
+
       {/* Add custom CSS for animations */}
       <style jsx>{`
         @keyframes fadeIn {

@@ -1,3 +1,5 @@
+// components/TooltipBubble.tsx
+
 interface TooltipBubbleProps {
   lawName: string
   description: string
