@@ -5,10 +5,14 @@ import AboutSection from '@/sections/AboutSection'
 import ProjectSection from '@/sections/ProjectSection'
 import ContactSection from '@/sections/ContactSection'
 import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-black dark:bg-black dark:text-white">
+    <main className="min-h-screen text-black dark:bg-black dark:text-white">
+      <div className="mb-20">
+        <Navbar />
+      </div>
       <div className="mb-24">
         <HeroSection />
       </div>

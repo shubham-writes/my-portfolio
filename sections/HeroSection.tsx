@@ -47,7 +47,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800">
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden pb-10 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800">
 
       {/* ==============================================
           LAYER 0: BACKGROUND & WHITESPACE ANNOTATION 
@@ -83,32 +83,10 @@ export default function HeroSection() {
          ============================================== */}
       <div className="relative z-10 pointer-events-auto">
 
-        {/* Navigation */}
-        <nav className="flex justify-between items-center px-8 py-6">
-          <div className={`transform transition-all duration-1000 ${isLoaded ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
-            <UxAnnotate law="Recognition over Recall" insight="Brand name always visible for easy navigation" position="bottom">
-              <div className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-                SV
-              </div>
-            </UxAnnotate>
-          </div>
 
-          <div className={`flex space-x-8 transform transition-all duration-1000 delay-200 ${isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
-            <UxAnnotate law="Law of Proximity" insight="Grouped elements are perceived as related." position="bottom">
-              <div className="flex space-x-8">
-                {['Work', 'About', 'Contact'].map((item) => (
-                  <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors relative group">
-                    {item}
-                    <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black dark:bg-white transition-all duration-300 group-hover:w-full" />
-                  </a>
-                ))}
-              </div>
-            </UxAnnotate>
-          </div>
-        </nav>
 
         {/* Hero Content */}
-        <main className="flex flex-col items-center justify-center min-h-[80vh] px-8 text-center">
+        <main className="flex flex-col items-center justify-center min-h-[80vh] px-8 pt-10 text-center">
 
           {/* Profile */}
           <div className={`transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'}`}>
@@ -160,16 +138,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* UX Toggle Button */}
-          <div className={`transform transition-all duration-1500 delay-700 ease-out mb-12 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-            <UxAnnotate law="Affordance" insight="Toggle switch implies clickability." position="right">
-              <button onClick={toggleInsights} className={`relative w-16 h-9 rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/20 ${showInsights ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg' : 'bg-gray-300 dark:bg-gray-600'}`}>
-                <div className={`absolute top-1 left-1 w-7 h-7 bg-white rounded-full shadow-md transition-all duration-300 ${showInsights ? 'translate-x-7' : 'translate-x-0'}`}>
-                  <div className={`w-full h-full rounded-full flex items-center justify-center ${showInsights ? 'text-blue-500' : 'text-gray-400'}`}>{showInsights ? '🧠' : '💡'}</div>
-                </div>
-              </button>
-            </UxAnnotate>
-          </div>
+
 
           {/* CTA Buttons */}
           <div className={`transform transition-all duration-1500 delay-900 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
@@ -179,7 +148,7 @@ export default function HeroSection() {
                   <span className="relative z-10">Explore My Work</span>
                 </button>
               </UxAnnotate>
-              <UxAnnotate law="Progressive Disclosure" insight="Secondary options available if needed.">
+              <UxAnnotate law="Progressive Disclosure" insight="Secondary options available if needed." position="top">
                 <button className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-10 py-4 rounded-full font-medium hover:bg-gray-900 hover:text-white transition-all duration-300 hover:scale-105">
                   Let's Connect
                 </button>
